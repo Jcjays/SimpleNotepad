@@ -1,9 +1,6 @@
 package com.example.simplenotepad.room
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 
@@ -15,6 +12,9 @@ interface NoteEntityDao {
 
     @Insert
     suspend fun addNote(note: NoteEntity)
+
+    @Delete
+    suspend fun deleteNote(note: NoteEntity)
 
     @Update
     suspend fun updateNote(note: NoteEntity)
