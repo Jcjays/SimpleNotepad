@@ -15,12 +15,12 @@ import com.example.simplenotepad.model.NoteModelDisplay
 import com.example.simplenotepad.room.NoteEntity
 
 
-class HomeFragment : BaseApplication() {
+class HomeFragment : BaseApplication(), IClickableState {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val homeEpoxyController = HomeEpoxyController()
+    private val homeEpoxyController = HomeEpoxyController(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,9 +57,20 @@ class HomeFragment : BaseApplication() {
             })
 
     }
+    override fun onSelectedItem(noteId: String) {
+        if(noteId.isEmpty()) return
+
+        val action = HomeFragmentDirections.actionHomeFragmentToAddNoteFragment(noteId)
+        findNavController().navigate(action)
+    }
+
+    override fun onMultipleSelectionEnabled(noteId: String) {
+        //todo contextual multiple deletion of notes.
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 }

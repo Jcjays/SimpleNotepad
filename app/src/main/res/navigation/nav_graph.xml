@@ -14,9 +14,18 @@
             android:id="@+id/action_homeFragment_to_addNoteFragment"
             app:destination="@id/addNoteFragment" />
     </fragment>
+
+
     <fragment
         android:id="@+id/addNoteFragment"
         android:name="com.example.simplenotepad.AddNoteFragment"
         android:label="Add notes"
-        tools:layout="@layout/fragment_add_note" />
+        tools:layout="@layout/fragment_add_note" >
+        <argument
+            android:name="noteIdAction"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null"
+            />
+    </fragment>
 </navigation>

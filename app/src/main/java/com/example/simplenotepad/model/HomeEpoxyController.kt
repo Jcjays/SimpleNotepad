@@ -4,11 +4,14 @@ import android.view.View
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyController
+import com.example.simplenotepad.IClickableState
 import com.example.simplenotepad.R
 import com.example.simplenotepad.databinding.ModelNoteDisplayBinding
 import com.example.simplenotepad.room.NoteEntity
 
-class HomeEpoxyController : EpoxyController() {
+class HomeEpoxyController(
+    val clickState : IClickableState
+) : EpoxyController() {
 
 
     private var isLoading : Boolean = false
@@ -29,7 +32,7 @@ class HomeEpoxyController : EpoxyController() {
         }
 
         noteEntity.forEach { note ->
-            NoteModelDisplay(note)
+            NoteModelDisplay(note, clickState)
                 .id(note.noteId)
                 .addTo(this)
         }
@@ -38,10 +41,10 @@ class HomeEpoxyController : EpoxyController() {
 }
 
 data class NoteModelDisplay(
-    val note: NoteEntity
+    val note: NoteEntity,
+    val clickState: IClickableState
 ): ViewBindingKotlinModel<ModelNoteDisplayBinding>(R.layout.model_note_display){
     override fun ModelNoteDisplayBinding.bind() {
-
         title.text = note.title
 
         if(note.content == null)
@@ -50,8 +53,11 @@ data class NoteModelDisplay(
             content.isVisible = true
             content.text = note.content
         }
-
         date.text = note.dateCreated
+
+        root.setOnClickListener {
+            clickState.onSelectedItem(note.noteId)
+        }
     }
 
 }

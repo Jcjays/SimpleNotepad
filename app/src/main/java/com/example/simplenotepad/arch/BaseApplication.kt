@@ -11,6 +11,7 @@ import com.example.simplenotepad.MainActivity
 abstract class BaseApplication : Fragment() {
 
     protected val sharedViewModel: NoteViewModel by activityViewModels()
+
     protected val mainActivity: MainActivity
         get() = activity as MainActivity
 

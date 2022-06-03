@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.navigation.fragment.navArgs
 import com.example.simplenotepad.arch.BaseApplication
 import com.example.simplenotepad.databinding.FragmentAddNoteBinding
 import com.example.simplenotepad.databinding.FragmentHomeBinding
@@ -21,15 +22,27 @@ class AddNoteFragment : BaseApplication() {
     private var _binding: FragmentAddNoteBinding? = null
     private val binding get() = _binding!!
 
+    private var isInEditMode : Boolean = false
+
+    private val noteId : AddNoteFragmentArgs by navArgs()
+
+    private val noteEntity : NoteEntity? by lazy {
+        sharedViewModel.noteEntities.value?.find {
+            it.noteId == noteId.noteIdAction
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAddNoteBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentAddNoteBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         showSoftKeyboard(binding.titleEditText)
 
         sharedViewModel.transactionCompleteListener.observe(viewLifecycleOwner){
@@ -37,6 +50,14 @@ class AddNoteFragment : BaseApplication() {
                 resetTextFieldState()
             }
         }
+
+        noteEntity.let {
+            if(it == null)
+                return@let
+
+            populateExistingData(it)
+        }
+
 
         binding.saveButton.setOnClickListener {
             saveToDatabase()
@@ -74,6 +95,12 @@ class AddNoteFragment : BaseApplication() {
         binding.contentEditText.text = null
         binding.titleEditText.requestFocus()
         Toast.makeText(requireContext(), "Item saved!", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun populateExistingData(note : NoteEntity?){
+        binding.titleEditText.setText(note?.title)
+        binding.contentEditText.setText(note?.content)
+        binding.saveButton.text = "Update"
     }
 
     override fun onDestroyView() {
