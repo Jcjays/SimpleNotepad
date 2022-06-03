@@ -7,8 +7,8 @@ data class NoteWithCategories(
     @Embedded val user : NoteEntity,
 
     @Relation(
-        parentColumn = "noteId",
-        entityColumn = "noteEntityId"
+        parentColumn = "categoryId",
+        entityColumn = "id"
     )
-    val categories: List<CategoryEntity>
+    val categories: CategoryEntity
 )

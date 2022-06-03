@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <com.airbnb.epoxy.EpoxyRecyclerView
         android:id="@+id/HomeEpoxyRecyclerView"
         android:layout_width="match_parent"

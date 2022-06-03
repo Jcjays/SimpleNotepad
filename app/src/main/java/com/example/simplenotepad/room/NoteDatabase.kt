@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [NoteEntity::class], version = 1)
+@Database(entities = [NoteEntity::class], version = 2)
 abstract class NoteDatabase : RoomDatabase(){
 
     companion object {
@@ -23,7 +23,7 @@ abstract class NoteDatabase : RoomDatabase(){
                     NoteDatabase::class.java,
                     "notes_database"
                 )
-                .addMigrations()
+                .fallbackToDestructiveMigration()
                 .build()
             return INSTANCE!!
         }

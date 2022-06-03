@@ -5,8 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class CategoryEntity(
-    @PrimaryKey(autoGenerate = true) val categoryId : Int,
-    val noteEntityId : Int = 0,
+    @PrimaryKey val id : String = "",
     val categoryName : String = ""
 )
 
