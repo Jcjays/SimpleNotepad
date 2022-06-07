@@ -17,6 +17,8 @@ class NoteViewModel : ViewModel() {
 
     val transactionCompleteListener = MutableLiveData<Event<Boolean>>()
 
+    var onSelectionModeEnable = MutableLiveData<Boolean>()
+
     fun init(noteDatabase: NoteDatabase){
         repository = NoteRepository(noteDatabase)
 
@@ -31,6 +33,10 @@ class NoteViewModel : ViewModel() {
     fun addNote(note: NoteEntity) = viewModelScope.launch {
         repository.addNote(note)
         transactionCompleteListener.postValue(Event(true))
+    }
+
+    fun deleteNotes(listOfNoteEntity: ArrayList<String>) = viewModelScope.launch {
+        repository.deleteNotes(listOfNoteEntity)
     }
 
     fun deleteNote(note: NoteEntity) = viewModelScope.launch {

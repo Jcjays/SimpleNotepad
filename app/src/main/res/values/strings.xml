@@ -5,4 +5,6 @@
     <string name="home_fab_behavior">Adding items</string>
     <string name="Title">Title</string>
     <string name="save">save</string>
+    <string name="delete">delete items</string>
+    <string name="content_description_delete">"deleting a note "</string>
 </resources>

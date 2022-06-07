@@ -20,6 +20,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/titleEditText"
+            android:inputType="textCapSentences"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -40,6 +41,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/contentEditText"
             android:layout_width="match_parent"
+            android:inputType="textMultiLine|textCapSentences"
             android:layout_height="200dp"
             android:gravity="top" />
 

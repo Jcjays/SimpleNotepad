@@ -23,10 +23,8 @@ class AddNoteFragment : BaseApplication() {
     private val binding get() = _binding!!
 
     private var isInEditMode : Boolean = false
-
     private val noteId : AddNoteFragmentArgs by navArgs()
-
-    private val noteEntity : NoteEntity? by lazy {
+    private val existingNote : NoteEntity? by lazy {
         sharedViewModel.noteEntities.value?.find {
             it.noteId == noteId.noteIdAction
         }
@@ -51,13 +49,14 @@ class AddNoteFragment : BaseApplication() {
             }
         }
 
-        noteEntity.let {
+        //populate text view in edit mode
+        existingNote.let {
             if(it == null)
                 return@let
 
+            isInEditMode = true
             populateExistingData(it)
         }
-
 
         binding.saveButton.setOnClickListener {
             saveToDatabase()
@@ -77,6 +76,18 @@ class AddNoteFragment : BaseApplication() {
 
         if(content?.isEmpty() == true)
             content = null
+
+        if(isInEditMode){
+            val noteEntity = existingNote!!.copy(
+                title = title,
+                content = content,
+                dateCreated = DateFormat.getDateInstance(DateFormat.FULL).format(Calendar.getInstance().time)
+            )
+
+            sharedViewModel.updateNote(noteEntity)
+            Toast.makeText(requireContext(), "Item updated!", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         //todo make a state when in edit mode.
 

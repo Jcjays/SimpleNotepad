@@ -13,6 +13,9 @@ interface NoteEntityDao {
     @Insert
     suspend fun addNote(note: NoteEntity)
 
+    @Query("DELETE FROM noteEntity WHERE noteId IN (:listOfNoteEntity)")
+    suspend fun deleteNotes(listOfNoteEntity: ArrayList<String>)
+
     @Delete
     suspend fun deleteNote(note: NoteEntity)
 

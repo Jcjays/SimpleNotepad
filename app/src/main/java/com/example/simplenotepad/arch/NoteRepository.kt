@@ -14,6 +14,10 @@ class NoteRepository(private val noteDatabase: NoteDatabase) {
         noteDatabase.noteDao().addNote(note)
     }
 
+    suspend fun deleteNotes(listOfNoteEntity: ArrayList<String>){
+        noteDatabase.noteDao().deleteNotes(listOfNoteEntity)
+    }
+
     suspend fun deleteNote(note: NoteEntity){
         noteDatabase.noteDao().deleteNote(note)
     }

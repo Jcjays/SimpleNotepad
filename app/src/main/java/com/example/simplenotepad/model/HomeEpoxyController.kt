@@ -1,6 +1,9 @@
 package com.example.simplenotepad.model
 
+import android.opengl.Visibility
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyController
@@ -15,10 +18,16 @@ class HomeEpoxyController(
 
 
     private var isLoading : Boolean = false
-    set(value) {
-        field = value
-        requestModelBuild()
-    }
+        set(value) {
+            field = value
+            requestModelBuild()
+        }
+
+    var isSelectionModeEnabled : Boolean = false
+        set(value) {
+            field = value
+            requestModelBuild()
+        }
 
     var noteEntity = ArrayList<NoteEntity>()
         set(value) {
@@ -32,7 +41,7 @@ class HomeEpoxyController(
         }
 
         noteEntity.forEach { note ->
-            NoteModelDisplay(note, clickState)
+            NoteModelDisplay(note, clickState, isSelectionModeEnabled)
                 .id(note.noteId)
                 .addTo(this)
         }
@@ -42,7 +51,8 @@ class HomeEpoxyController(
 
 data class NoteModelDisplay(
     val note: NoteEntity,
-    val clickState: IClickableState
+    val clickState: IClickableState,
+    val isSelectionModeEnable: Boolean
 ): ViewBindingKotlinModel<ModelNoteDisplayBinding>(R.layout.model_note_display){
     override fun ModelNoteDisplayBinding.bind() {
         title.text = note.title
@@ -55,9 +65,28 @@ data class NoteModelDisplay(
         }
         date.text = note.dateCreated
 
-        root.setOnClickListener {
-            clickState.onSelectedItem(note.noteId)
+        if(isSelectionModeEnable){
+            radioButton.visibility = View.VISIBLE
+            root.setOnClickListener {
+                clickState.onMultipleSelectionEnabled(note.noteId)
+                radioButton.isChecked = !radioButton.isChecked
+            }
+        } else {
+            radioButton.visibility = View.GONE
+            radioButton.isChecked = false
+            root.setOnClickListener {
+                clickState.onSelectedItem(note.noteId)
+            }
         }
+
+        root.setOnLongClickListener {
+            clickState.onMultipleSelectionEnabled(note.noteId)
+            radioButton.isChecked = !radioButton.isChecked
+            true
+        }
+
+
+
     }
 
 }
