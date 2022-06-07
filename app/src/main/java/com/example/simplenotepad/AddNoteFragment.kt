@@ -30,6 +30,8 @@ class AddNoteFragment : BaseApplication() {
         }
     }
 
+    private val colorWheelEpoxyController = ColorWheelEpoxyController()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,6 +50,8 @@ class AddNoteFragment : BaseApplication() {
                 resetTextFieldState()
             }
         }
+
+        binding.colorWheel.setControllerAndBuildModels(colorWheelEpoxyController)
 
         //populate text view in edit mode
         existingNote.let {
