@@ -1,5 +1,6 @@
 package com.example.simplenotepad.model
 
+import android.graphics.Color
 import android.opengl.Visibility
 import android.util.Log
 import android.view.View
@@ -55,6 +56,7 @@ data class NoteModelDisplay(
     val isSelectionModeEnable: Boolean
 ): ViewBindingKotlinModel<ModelNoteDisplayBinding>(R.layout.model_note_display){
     override fun ModelNoteDisplayBinding.bind() {
+
         title.text = note.title
 
         if(note.content == null)
@@ -64,6 +66,9 @@ data class NoteModelDisplay(
             content.text = note.content
         }
         date.text = note.dateCreated
+
+        if(note.color.isNotBlank())
+            root.setCardBackgroundColor(Color.parseColor(note.color))
 
         if(isSelectionModeEnable){
             radioButton.visibility = View.VISIBLE

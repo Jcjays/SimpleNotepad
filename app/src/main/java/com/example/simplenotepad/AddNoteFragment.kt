@@ -1,6 +1,7 @@
 package com.example.simplenotepad
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -30,7 +31,11 @@ class AddNoteFragment : BaseApplication() {
         }
     }
 
-    private val colorWheelEpoxyController = ColorWheelEpoxyController()
+    private var color : String = "#FAFAFA"
+    private val colorWheelEpoxyController = ColorWheelEpoxyController{ colorAttribute ->
+        binding.root.setBackgroundColor(Color.parseColor(colorAttribute))
+        color = colorAttribute
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -85,7 +90,8 @@ class AddNoteFragment : BaseApplication() {
             val noteEntity = existingNote!!.copy(
                 title = title,
                 content = content,
-                dateCreated = DateFormat.getDateInstance(DateFormat.FULL).format(Calendar.getInstance().time)
+                dateCreated = DateFormat.getDateInstance(DateFormat.FULL).format(Calendar.getInstance().time),
+                color = color
             )
 
             sharedViewModel.updateNote(noteEntity)
@@ -99,7 +105,8 @@ class AddNoteFragment : BaseApplication() {
             noteId = UUID.randomUUID().toString(),
             title = title,
             content = content,
-            dateCreated = DateFormat.getDateInstance(DateFormat.FULL).format(Calendar.getInstance().time)
+            dateCreated = DateFormat.getDateInstance(DateFormat.FULL).format(Calendar.getInstance().time),
+            color = color
         )
 
         sharedViewModel.addNote(noteEntity)
@@ -116,6 +123,9 @@ class AddNoteFragment : BaseApplication() {
         binding.titleEditText.setText(note?.title)
         binding.contentEditText.setText(note?.content)
         binding.saveButton.text = "Update"
+
+        if(note?.color!!.isNotBlank())
+            binding.root.setBackgroundColor(Color.parseColor(note.color))
     }
 
     override fun onDestroyView() {

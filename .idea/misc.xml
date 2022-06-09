@@ -3,13 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Chris/AndroidStudioProjects/SimpleNotepad/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/Chris/AndroidStudioProjects/SimpleNotepad/app/src/main/res/drawable/ic_add.xml" value="0.2145" />
+        <entry key="..\:/Users/Chris/AndroidStudioProjects/SimpleNotepad/app/src/main/res/drawable/ic_add_category_24.xml" value="0.2145" />
+        <entry key="..\:/Users/Chris/AndroidStudioProjects/SimpleNotepad/app/src/main/res/drawable/ic_default_24.xml" value="0.117" />
+        <entry key="..\:/Users/Chris/AndroidStudioProjects/SimpleNotepad/app/src/main/res/drawable/ic_filter_24dp.xml" value="0.2145" />
+        <entry key="..\:/Users/Chris/AndroidStudioProjects/SimpleNotepad/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/Chris/AndroidStudioProjects/SimpleNotepad/app/src/main/res/layout/fragment_add_note.xml" value="0.35833333333333334" />
-        <entry key="..\:/Users/Chris/AndroidStudioProjects/SimpleNotepad/app/src/main/res/layout/fragment_home.xml" value="0.34427083333333336" />
+        <entry key="..\:/Users/Chris/AndroidStudioProjects/SimpleNotepad/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/Users/Chris/AndroidStudioProjects/SimpleNotepad/app/src/main/res/layout/model_color_wheel.xml" value="0.3625" />
         <entry key="..\:/Users/Chris/AndroidStudioProjects/SimpleNotepad/app/src/main/res/layout/model_loading_state.xml" value="0.3625" />
         <entry key="..\:/Users/Chris/AndroidStudioProjects/SimpleNotepad/app/src/main/res/layout/model_note_display.xml" value="0.3625" />
         <entry key="..\:/Users/Chris/AndroidStudioProjects/SimpleNotepad/app/src/main/res/menu/contextual_app_bar_menu.xml" value="0.28072916666666664" />
+        <entry key="..\:/Users/Chris/AndroidStudioProjects/SimpleNotepad/app/src/main/res/menu/main_app_bar_menu.xml" value="0.3625" />
       </map>
     </option>
   </component>

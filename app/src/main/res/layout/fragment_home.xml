@@ -7,25 +7,44 @@
     tools:context=".HomeFragment">
 
     <com.airbnb.epoxy.EpoxyRecyclerView
+        android:id="@+id/categoriesEpoxyRecyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:visibility="gone"
+        android:padding="15dp"
+        app:itemSpacing="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_wrapBefore="true" />
+
+
+    <com.airbnb.epoxy.EpoxyRecyclerView
         android:id="@+id/HomeEpoxyRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:nestedScrollingEnabled="false"
         android:paddingHorizontal="8dp"
         android:paddingTop="8dp"
         app:itemSpacing="3dp"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/categoriesEpoxyRecyclerView"
+        app:spanCount="2" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/HomeFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/home_fab_behavior"
-        android:src="@drawable/ic_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="15dp"/>
+                android:id="@+id/HomeFab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/home_fab_behavior"
+                android:src="@drawable/ic_add"
+                android:layout_margin="15dp"
+                app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

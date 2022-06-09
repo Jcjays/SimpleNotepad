@@ -7,4 +7,8 @@
     <string name="save">save</string>
     <string name="delete">delete items</string>
     <string name="content_description_delete">"deleting a note "</string>
+    <string name="category">category related task</string>
+    <string name="content_description_category">category related task</string>
+    <string name="sort">Sort related task</string>
+    <string name="content_description_sort">Sort related task</string>
 </resources>

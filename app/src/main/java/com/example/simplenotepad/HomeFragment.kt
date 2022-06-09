@@ -23,6 +23,12 @@ class HomeFragment() : BaseApplication(), IClickableState {
     private var itemsToDelete: ArrayList<String> = ArrayList()
     private var actionMode : ActionMode? = null
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -108,6 +114,10 @@ class HomeFragment() : BaseApplication(), IClickableState {
         if(itemsToDelete.contains(noteId)) itemsToDelete.remove(noteId) else itemsToDelete.add(noteId)
 
         actionMode?.title = "${itemsToDelete.size} selected"
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_app_bar_menu, menu)
     }
 
     override fun onDestroyView() {

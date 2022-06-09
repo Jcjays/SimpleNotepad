@@ -1,18 +1,22 @@
 
 package com.example.simplenotepad
 
-import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
+import android.view.Menu
 import androidx.activity.viewModels
-import androidx.appcompat.view.ActionMode
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.airbnb.epoxy.paging.PagedListEpoxyController
 import com.example.simplenotepad.arch.NoteViewModel
 import com.example.simplenotepad.room.NoteDatabase
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +36,21 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment))
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+//        val fab = findViewById<FloatingActionButton>(R.id.HomeFab)
+//
+//        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+//            if (appBarConfiguration.topLevelDestinations.contains(destination.id)) {
+//                fab.isVisible = true
+//            } else {
+//                fab.isGone = true
+//            }
+//        }
+//
+//        fab.setOnClickListener {
+//            navController.navigate(R.id.action_homeFragment_to_addNoteFragment)
+//        }
+
     }
 
     override fun onSupportNavigateUp(): Boolean {

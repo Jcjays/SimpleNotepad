@@ -30,4 +30,5 @@ abstract class NoteDatabase : RoomDatabase(){
     }
 
     abstract fun noteDao(): NoteEntityDao
+    abstract fun categoryDao(): CategoryEntityDao
 }
