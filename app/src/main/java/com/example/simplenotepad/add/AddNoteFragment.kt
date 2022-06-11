@@ -1,18 +1,14 @@
-package com.example.simplenotepad
+package com.example.simplenotepad.add
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import com.example.simplenotepad.arch.BaseApplication
 import com.example.simplenotepad.databinding.FragmentAddNoteBinding
-import com.example.simplenotepad.databinding.FragmentHomeBinding
 import com.example.simplenotepad.room.NoteEntity
 import java.text.DateFormat
 import java.util.*
@@ -26,7 +22,7 @@ class AddNoteFragment : BaseApplication() {
     private var isInEditMode : Boolean = false
     private val noteId : AddNoteFragmentArgs by navArgs()
     private val existingNote : NoteEntity? by lazy {
-        sharedViewModel.noteEntities.value?.find {
+        sharedViewModel.noteEntitiesLiveData.value?.find {
             it.noteId == noteId.noteIdAction
         }
     }

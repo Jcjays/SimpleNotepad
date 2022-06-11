@@ -4,21 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".HomeFragment">
+    tools:context=".home.HomeFragment">
 
     <com.airbnb.epoxy.EpoxyRecyclerView
         android:id="@+id/categoriesEpoxyRecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:visibility="gone"
-        android:padding="15dp"
+        android:padding="7dp"
         app:itemSpacing="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_wrapBefore="true" />
-
+        />
 
     <com.airbnb.epoxy.EpoxyRecyclerView
         android:id="@+id/HomeEpoxyRecyclerView"
@@ -26,7 +24,6 @@
         android:layout_height="0dp"
         android:nestedScrollingEnabled="false"
         android:paddingHorizontal="8dp"
-        android:paddingTop="8dp"
         app:itemSpacing="3dp"
         app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"

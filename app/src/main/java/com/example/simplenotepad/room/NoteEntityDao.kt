@@ -3,7 +3,6 @@ package com.example.simplenotepad.room
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
-
 @Dao
 interface NoteEntityDao {
 

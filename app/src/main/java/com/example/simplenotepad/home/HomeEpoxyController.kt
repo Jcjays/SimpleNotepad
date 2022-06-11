@@ -1,16 +1,14 @@
-package com.example.simplenotepad.model
+package com.example.simplenotepad.home
 
 import android.graphics.Color
-import android.opengl.Visibility
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyController
-import com.example.simplenotepad.IClickableState
 import com.example.simplenotepad.R
 import com.example.simplenotepad.databinding.ModelNoteDisplayBinding
+import com.example.simplenotepad.model.LoadingStateModel
+import com.example.simplenotepad.model.ViewBindingKotlinModel
 import com.example.simplenotepad.room.NoteEntity
 
 class HomeEpoxyController(

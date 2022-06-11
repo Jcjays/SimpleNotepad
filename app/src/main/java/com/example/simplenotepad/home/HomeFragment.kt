@@ -1,16 +1,15 @@
-package com.example.simplenotepad
+package com.example.simplenotepad.home
 
-import android.app.Notification
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.core.view.isGone
 import androidx.navigation.fragment.findNavController
 import com.airbnb.epoxy.EpoxyTouchHelper
 import com.airbnb.epoxy.EpoxyTouchHelper.SwipeCallbacks
+import com.example.simplenotepad.R
 import com.example.simplenotepad.arch.BaseApplication
 import com.example.simplenotepad.databinding.FragmentHomeBinding
-import com.example.simplenotepad.model.HomeEpoxyController
-import com.example.simplenotepad.model.NoteModelDisplay
 import com.example.simplenotepad.room.NoteEntity
 
 
@@ -20,9 +19,10 @@ class HomeFragment() : BaseApplication(), IClickableState {
     private val binding get() = _binding!!
 
     private val homeEpoxyController = HomeEpoxyController(this)
+    private val categoriesEpoxyController = HomeCategoriesEpoxyController(this)
+
     private var itemsToDelete: ArrayList<String> = ArrayList()
     private var actionMode : ActionMode? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +45,8 @@ class HomeFragment() : BaseApplication(), IClickableState {
             findNavController().navigate(R.id.action_homeFragment_to_addNoteFragment)
         }
 
-        sharedViewModel.noteEntities.observe(viewLifecycleOwner){
+        //region note entity
+        sharedViewModel.noteEntitiesLiveData.observe(viewLifecycleOwner){
             homeEpoxyController.noteEntity = it as ArrayList<NoteEntity>
         }
 
@@ -54,6 +55,16 @@ class HomeFragment() : BaseApplication(), IClickableState {
         }
 
         binding.HomeEpoxyRecyclerView.setController(homeEpoxyController)
+        //endregion note entity
+
+        //region category entity
+        sharedViewModel.categoryEntitiesLiveData.observe(viewLifecycleOwner) {
+            categoriesEpoxyController.categoryEntities = it
+        }
+
+        binding.categoriesEpoxyRecyclerView.setController(categoriesEpoxyController)
+
+        //endregion category entity
 
         EpoxyTouchHelper.initSwiping(binding.HomeEpoxyRecyclerView)
             .left()
@@ -74,6 +85,7 @@ class HomeFragment() : BaseApplication(), IClickableState {
         val action = HomeFragmentDirections.actionHomeFragmentToAddNoteFragment(noteId)
         findNavController().navigate(action)
     }
+
 
     override fun onMultipleSelectionEnabled(noteId: String){
         sharedViewModel.onSelectionModeEnable.postValue(true)
@@ -116,8 +128,29 @@ class HomeFragment() : BaseApplication(), IClickableState {
         actionMode?.title = "${itemsToDelete.size} selected"
     }
 
+    override fun isEmpty(isSelected: Boolean) {
+        if (isSelected) binding.categoriesEpoxyRecyclerView.isGone = true
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_app_bar_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.addCategoryAction -> {
+                findNavController().navigate(R.id.action_homeFragment_to_addCategoryFragment)
+                true
+            }
+
+            R.id.sortAction -> {
+                //todo implement sort function
+                true
+            }
+
+            else ->  return super.onOptionsItemSelected(item)
+        }
+
     }
 
     override fun onDestroyView() {

@@ -6,19 +6,17 @@ import androidx.lifecycle.viewModelScope
 import com.example.simplenotepad.room.CategoryEntity
 import com.example.simplenotepad.room.NoteDatabase
 import com.example.simplenotepad.room.NoteEntity
-import com.example.simplenotepad.room.NoteWithCategories
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.w3c.dom.Entity
 
 class NoteViewModel : ViewModel() {
 
     private lateinit var repository: NoteRepository
 
-    val noteEntities = MutableLiveData<List<NoteEntity>>()
+    val noteEntitiesLiveData = MutableLiveData<List<NoteEntity>>()
+    val categoryEntitiesLiveData = MutableLiveData<List<CategoryEntity>>()
 
     val transactionCompleteListener = MutableLiveData<Event<Boolean>>()
-
     var onSelectionModeEnable = MutableLiveData<Boolean>()
 
     fun init(noteDatabase: NoteDatabase){
@@ -26,9 +24,16 @@ class NoteViewModel : ViewModel() {
 
         viewModelScope.launch {
             repository.getNotes().collect { items ->
-                noteEntities.postValue(items)
+                noteEntitiesLiveData.postValue(items)
             }
         }
+
+        viewModelScope.launch {
+            repository.getAllCategories().collect { items ->
+                categoryEntitiesLiveData.postValue(items)
+            }
+        }
+
     }
 
 
@@ -41,7 +46,7 @@ class NoteViewModel : ViewModel() {
             )
     }
 
-
+    //region note entity
     fun addNote(note: NoteEntity) = viewModelScope.launch {
         repository.addNote(note)
         transactionCompleteListener.postValue(Event(true))
@@ -58,5 +63,22 @@ class NoteViewModel : ViewModel() {
     fun updateNote(note: NoteEntity) = viewModelScope.launch {
         repository.updateNote(note)
     }
+    //endregion note entity
 
+    //region category entity
+
+    fun addCategory(category: CategoryEntity) = viewModelScope.launch {
+        repository.addCategory(category)
+        transactionCompleteListener.postValue(Event(true))
+    }
+
+    fun deleteCategory(category: CategoryEntity) = viewModelScope.launch {
+        repository.deleteCategory(category)
+    }
+
+    fun updateCategory(category: CategoryEntity) = viewModelScope.launch {
+        repository.updateCategory(category)
+    }
+
+    //endregion category entity
 }

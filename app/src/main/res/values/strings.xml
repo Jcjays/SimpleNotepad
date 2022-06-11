@@ -8,7 +8,10 @@
     <string name="delete">delete items</string>
     <string name="content_description_delete">"deleting a note "</string>
     <string name="category">category related task</string>
+    <string name="categories">Categories</string>
     <string name="content_description_category">category related task</string>
     <string name="sort">Sort related task</string>
     <string name="content_description_sort">Sort related task</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

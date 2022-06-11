@@ -14,6 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <!--    Action Mode -->
     <style name="Theme.App" parent="Theme.SimpleNotepad">
         <item name="windowActionModeOverlay">true</item>
         <item name="actionModeStyle">@style/Widget.App.ActionMode</item>
@@ -26,10 +27,29 @@
         <item name="subtitleTextStyle">?attr/textAppearanceSubtitle1</item>
         <item name="background">@color/material_grey_900</item>
     </style>
-
+    <!-- Rounded color wheel buttons -->
     <style name="ShapeAppearanceOverlay.MyApp.Button.Rounded" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
+    </style>
+
+    <!-- Full width buttons -->
+    <style name="Button.FullWidth" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:maxWidth">@null</item>
+    </style>
+
+    <style name="ThemeOverlay.MaterialComponents.MaterialAlertDialog.FullWidthButtons">
+        <item name="materialAlertDialogButtonSpacerVisibility">2</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Button.FullWidth</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Button.FullWidth</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Button.FullWidth</item>
+    </style>
+
+    <style name="ThemeOverlay.SimpleNotepad.FullscreenContainer" parent="">
+        <item name="fullscreenBackgroundColor">@color/light_blue_600</item>
+        <item name="fullscreenTextColor">@color/light_blue_A200</item>
     </style>
 
 </resources>

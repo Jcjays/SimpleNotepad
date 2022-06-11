@@ -1,8 +1,8 @@
-package com.example.simplenotepad
+package com.example.simplenotepad.add
 
 import android.graphics.Color
-import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyController
+import com.example.simplenotepad.R
 import com.example.simplenotepad.databinding.ModelColorWheelBinding
 import com.example.simplenotepad.model.ViewBindingKotlinModel
 
@@ -18,7 +18,7 @@ enum class Colors(val color: String) {
 }
 
 class ColorWheelEpoxyController(
-    val colorAttribute: (String) -> Unit
+    private val colorAttribute: (String) -> Unit
 ): EpoxyController() {
 
     override fun buildModels() {

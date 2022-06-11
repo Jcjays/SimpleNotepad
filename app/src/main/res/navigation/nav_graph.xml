@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.simplenotepad.HomeFragment"
+        android:name="com.example.simplenotepad.home.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -17,12 +17,20 @@
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_homeFragment_to_addCategoryFragment"
+            app:destination="@id/addCategoryFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"
+            />
     </fragment>
 
 
     <fragment
         android:id="@+id/addNoteFragment"
-        android:name="com.example.simplenotepad.AddNoteFragment"
+        android:name="com.example.simplenotepad.add.AddNoteFragment"
         android:label="Add notes"
         tools:layout="@layout/fragment_add_note" >
         <argument
@@ -32,4 +40,11 @@
             android:defaultValue="@null"
             />
     </fragment>
+
+
+    <fragment
+        android:id="@+id/addCategoryFragment"
+        android:name="com.example.simplenotepad.AddCategoryFragment"
+        android:label="Categories"
+        tools:layout="@layout/fragment_add_category" />
 </navigation>
