@@ -7,7 +7,7 @@ import com.example.simplenotepad.model.ViewBindingKotlinModel
 import com.example.simplenotepad.room.CategoryEntity
 
 class HomeCategoriesEpoxyController(
-    private val clickState : IClickableState
+    private val clickState : (Boolean) -> Unit
 ) : EpoxyController() {
 
     var categoryEntities : List<CategoryEntity> = emptyList()
@@ -17,7 +17,7 @@ class HomeCategoriesEpoxyController(
     }
 
     override fun buildModels() {
-        clickState.isEmpty(categoryEntities.isEmpty())
+        clickState(categoryEntities.isEmpty())
 
         categoryEntities.forEach { categoryEntity ->
             CategoryModels(categoryEntity).id(categoryEntity.id).addTo(this)

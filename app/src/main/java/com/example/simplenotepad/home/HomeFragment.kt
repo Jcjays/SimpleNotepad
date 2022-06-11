@@ -19,7 +19,7 @@ class HomeFragment() : BaseApplication(), IClickableState {
     private val binding get() = _binding!!
 
     private val homeEpoxyController = HomeEpoxyController(this)
-    private val categoriesEpoxyController = HomeCategoriesEpoxyController(this)
+//    private val categoriesEpoxyController = HomeCategoriesEpoxyController(::isEmpty)
 
     private var itemsToDelete: ArrayList<String> = ArrayList()
     private var actionMode : ActionMode? = null
@@ -57,14 +57,14 @@ class HomeFragment() : BaseApplication(), IClickableState {
         binding.HomeEpoxyRecyclerView.setController(homeEpoxyController)
         //endregion note entity
 
-        //region category entity
-        sharedViewModel.categoryEntitiesLiveData.observe(viewLifecycleOwner) {
-            categoriesEpoxyController.categoryEntities = it
-        }
-
-        binding.categoriesEpoxyRecyclerView.setController(categoriesEpoxyController)
-
-        //endregion category entity
+//        //region category entity
+//        sharedViewModel.categoryEntitiesLiveData.observe(viewLifecycleOwner) {
+//            categoriesEpoxyController.categoryEntities = it
+//        }
+//
+//        binding.categoriesEpoxyRecyclerView.setController(categoriesEpoxyController)
+//
+//        //endregion category entity
 
         EpoxyTouchHelper.initSwiping(binding.HomeEpoxyRecyclerView)
             .left()
@@ -127,10 +127,10 @@ class HomeFragment() : BaseApplication(), IClickableState {
 
         actionMode?.title = "${itemsToDelete.size} selected"
     }
-
-    override fun isEmpty(isSelected: Boolean) {
-        if (isSelected) binding.categoriesEpoxyRecyclerView.isGone = true
-    }
+//
+//    private fun isEmpty(isSelected: Boolean) {
+//        if (isSelected) binding.categoriesEpoxyRecyclerView.isGone = true
+//    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_app_bar_menu, menu)

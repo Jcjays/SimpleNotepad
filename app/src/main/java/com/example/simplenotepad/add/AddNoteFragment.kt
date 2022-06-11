@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isGone
 import androidx.navigation.fragment.navArgs
 import com.example.simplenotepad.arch.BaseApplication
 import com.example.simplenotepad.databinding.FragmentAddNoteBinding
+import com.example.simplenotepad.home.HomeCategoriesEpoxyController
 import com.example.simplenotepad.room.NoteEntity
 import java.text.DateFormat
 import java.util.*
@@ -33,6 +35,8 @@ class AddNoteFragment : BaseApplication() {
         color = colorAttribute
     }
 
+    private var categoriesEpoxyController = HomeCategoriesEpoxyController(::isEmpty)
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,6 +58,12 @@ class AddNoteFragment : BaseApplication() {
 
         binding.colorWheel.setControllerAndBuildModels(colorWheelEpoxyController)
 
+        sharedViewModel.categoryEntitiesLiveData.observe(viewLifecycleOwner){
+            categoriesEpoxyController.categoryEntities = it
+        }
+
+        binding.addNoteCategoriesEpoxyRecyclerView.setController(categoriesEpoxyController)
+
         //populate text view in edit mode
         existingNote.let {
             if(it == null)
@@ -65,6 +75,13 @@ class AddNoteFragment : BaseApplication() {
 
         binding.saveButton.setOnClickListener {
             saveToDatabase()
+        }
+    }
+
+    private fun isEmpty(isSelected: Boolean){
+        if(isSelected) {
+            binding.addNoteCategoriesEpoxyRecyclerView.isGone = true
+            binding.label2.isGone = true
         }
     }
 

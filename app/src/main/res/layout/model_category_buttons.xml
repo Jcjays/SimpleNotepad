@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:text="Shopping"
+        android:textColor="@color/light_text"
         app:icon="@drawable/ic_folder_24"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
         app:layout_constraintBottom_toBottomOf="parent"
