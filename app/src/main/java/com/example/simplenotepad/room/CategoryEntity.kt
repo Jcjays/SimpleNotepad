@@ -8,5 +8,13 @@ import androidx.room.PrimaryKey
 data class CategoryEntity(
     @PrimaryKey val id : String = "",
     val categoryName : String = ""
-)
+){
+    companion object{
+        const val DEFAULT_CATEGORY_ID = "NONE"
+
+        fun getDefaultCategory(): CategoryEntity {
+            return CategoryEntity(DEFAULT_CATEGORY_ID, "NOTES")
+        }
+    }
+}
 

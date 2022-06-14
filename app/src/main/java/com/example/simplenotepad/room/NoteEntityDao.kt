@@ -9,6 +9,10 @@ interface NoteEntityDao {
     @Query("SELECT * FROM NoteEntity")
     fun getNotes(): Flow<List<NoteEntity>>
 
+    @Transaction
+    @Query("SELECT * FROM NoteEntity")
+    fun getAllNotesWithCategories(): Flow<List<NoteWithCategories>>
+
     @Insert
     suspend fun addNote(note: NoteEntity)
 

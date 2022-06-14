@@ -1,21 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+    app:cardCornerRadius="4dp"
+    app:cardBackgroundColor="#0000"
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="#60000000"
+    >
 
-    <Button
-        android:id="@+id/itemCategory"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:text="Shopping"
-        android:textColor="@color/light_text"
-        app:icon="@drawable/ic_folder_24"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="10dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_folder_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/orange_500" />
+
+        <TextView
+            android:id="@+id/categoryName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textAllCaps="true"
+            android:textColor="@color/light_text"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@id/imageView"
+            app:layout_constraintTop_toBottomOf="@id/imageView"
+            app:layout_constraintTop_toTopOf="@id/imageView"
+            tools:text="Shopping" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</com.google.android.material.card.MaterialCardView>

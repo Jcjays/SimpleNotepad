@@ -3,6 +3,7 @@ package com.example.simplenotepad.arch
 import com.example.simplenotepad.room.CategoryEntity
 import com.example.simplenotepad.room.NoteDatabase
 import com.example.simplenotepad.room.NoteEntity
+import com.example.simplenotepad.room.NoteWithCategories
 import kotlinx.coroutines.flow.Flow
 
 class NoteRepository(private val noteDatabase: NoteDatabase) {
@@ -47,4 +48,8 @@ class NoteRepository(private val noteDatabase: NoteDatabase) {
         noteDatabase.categoryDao().update(categoryEntity)
     }
     //endregion category entity
+
+    fun getAllNotesWithCategories(): Flow<List<NoteWithCategories>>{
+       return noteDatabase.noteDao().getAllNotesWithCategories()
+    }
 }

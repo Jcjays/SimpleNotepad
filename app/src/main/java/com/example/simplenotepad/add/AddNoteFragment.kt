@@ -10,7 +10,7 @@ import androidx.core.view.isGone
 import androidx.navigation.fragment.navArgs
 import com.example.simplenotepad.arch.BaseApplication
 import com.example.simplenotepad.databinding.FragmentAddNoteBinding
-import com.example.simplenotepad.home.HomeCategoriesEpoxyController
+import com.example.simplenotepad.room.CategoryEntity
 import com.example.simplenotepad.room.NoteEntity
 import java.text.DateFormat
 import java.util.*
@@ -22,20 +22,20 @@ class AddNoteFragment : BaseApplication() {
     private val binding get() = _binding!!
 
     private var isInEditMode : Boolean = false
+
     private val noteId : AddNoteFragmentArgs by navArgs()
     private val existingNote : NoteEntity? by lazy {
-        sharedViewModel.noteEntitiesLiveData.value?.find {
-            it.noteId == noteId.noteIdAction
-        }
+        sharedViewModel.notesWithCategoriesLiveData.value?.find {
+            it.noteEntity.noteId == noteId.noteIdAction
+        }?.noteEntity
     }
 
-    private var color : String = "#FAFAFA"
+    private var color: String = Colors.DefaultColor.color
     private val colorWheelEpoxyController = ColorWheelEpoxyController{ colorAttribute ->
         binding.root.setBackgroundColor(Color.parseColor(colorAttribute))
         color = colorAttribute
     }
 
-    private var categoriesEpoxyController = HomeCategoriesEpoxyController(::isEmpty)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,13 +58,7 @@ class AddNoteFragment : BaseApplication() {
 
         binding.colorWheel.setControllerAndBuildModels(colorWheelEpoxyController)
 
-        sharedViewModel.categoryEntitiesLiveData.observe(viewLifecycleOwner){
-            categoriesEpoxyController.categoryEntities = it
-        }
-
-        binding.addNoteCategoriesEpoxyRecyclerView.setController(categoriesEpoxyController)
-
-        //populate text view in edit mode
+        //region populate text view in edit mode
         existingNote.let {
             if(it == null)
                 return@let
@@ -76,13 +70,24 @@ class AddNoteFragment : BaseApplication() {
         binding.saveButton.setOnClickListener {
             saveToDatabase()
         }
+        // endregion
+        val categoriesEpoxyController = CategoriesEpoxyController (::onCategorySelected, ::onEmptyState)
+
+        sharedViewModel.onCategorySelected(existingNote?.categoryId ?: CategoryEntity.DEFAULT_CATEGORY_ID, true)
+        sharedViewModel.categoriesViewStateLiveData.observe(viewLifecycleOwner){
+            categoriesEpoxyController.categoryEntities = it
+        }
+
+        binding.addNoteCategoriesEpoxyRecyclerView.setController(categoriesEpoxyController)
     }
 
-    private fun isEmpty(isSelected: Boolean){
-        if(isSelected) {
-            binding.addNoteCategoriesEpoxyRecyclerView.isGone = true
-            binding.label2.isGone = true
-        }
+    private fun onEmptyState() {
+        binding.label2.isGone = true
+        binding.addNoteCategoriesEpoxyRecyclerView.isGone = true
+    }
+
+    private fun onCategorySelected(categoryId: String) {
+        sharedViewModel.onCategorySelected(categoryId)
     }
 
     private fun saveToDatabase(){
@@ -99,12 +104,15 @@ class AddNoteFragment : BaseApplication() {
         if(content?.isEmpty() == true)
             content = null
 
+        val itemCategoryId = sharedViewModel.categoriesViewStateLiveData.value?.getSelectedCategoryId() ?: return
+
         if(isInEditMode){
             val noteEntity = existingNote!!.copy(
                 title = title,
                 content = content,
-                dateCreated = DateFormat.getDateInstance(DateFormat.FULL).format(Calendar.getInstance().time),
-                color = color
+                dateCreated = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(Calendar.getInstance().time),
+                color = color,
+                categoryId = itemCategoryId
             )
 
             sharedViewModel.updateNote(noteEntity)
@@ -112,14 +120,13 @@ class AddNoteFragment : BaseApplication() {
             return
         }
 
-        //todo make a state when in edit mode.
-
         val noteEntity = NoteEntity(
             noteId = UUID.randomUUID().toString(),
             title = title,
             content = content,
-            dateCreated = DateFormat.getDateInstance(DateFormat.FULL).format(Calendar.getInstance().time),
-            color = color
+            dateCreated = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(Calendar.getInstance().time),
+            color = color,
+            categoryId = itemCategoryId
         )
 
         sharedViewModel.addNote(noteEntity)
@@ -129,6 +136,7 @@ class AddNoteFragment : BaseApplication() {
         binding.titleEditText.text = null
         binding.contentEditText.text = null
         binding.titleEditText.requestFocus()
+        sharedViewModel.onCategorySelected(CategoryEntity.DEFAULT_CATEGORY_ID)
         Toast.makeText(requireContext(), "Item saved!", Toast.LENGTH_SHORT).show()
     }
 
@@ -137,8 +145,10 @@ class AddNoteFragment : BaseApplication() {
         binding.contentEditText.setText(note?.content)
         binding.saveButton.text = "Update"
 
-        if(note?.color!!.isNotBlank())
-            binding.root.setBackgroundColor(Color.parseColor(note.color))
+        if(existingNote?.color!!.isNotBlank()){
+            binding.root.setBackgroundColor(Color.parseColor(existingNote?.color))
+            color = existingNote?.color ?: Colors.DefaultColor.color
+        }
     }
 
     override fun onDestroyView() {

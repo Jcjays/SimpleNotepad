@@ -1,6 +1,7 @@
 package com.example.simplenotepad
 
 import com.airbnb.epoxy.EpoxyController
+import com.example.simplenotepad.arch.NoteViewModel
 import com.example.simplenotepad.databinding.ModelCategoryButtonsBinding
 import com.example.simplenotepad.model.ViewBindingKotlinModel
 import com.example.simplenotepad.room.CategoryEntity
@@ -27,9 +28,9 @@ class AddCategoryEpoxyController(
         val clickState: (CategoryEntity) -> Unit
     ) : ViewBindingKotlinModel<ModelCategoryButtonsBinding>(R.layout.model_category_buttons) {
         override fun ModelCategoryButtonsBinding.bind() {
-            itemCategory.text = category.categoryName
+            categoryName.text = category.categoryName
 
-            itemCategory.setOnLongClickListener {
+            root.setOnLongClickListener {
                 clickState(category)
                 true
             }

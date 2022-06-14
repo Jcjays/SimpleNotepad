@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.simplenotepad.arch.BaseApplication
 import com.example.simplenotepad.databinding.FragmentAddCategoryBinding
-import com.example.simplenotepad.home.HomeCategoriesEpoxyController
 import com.example.simplenotepad.room.CategoryEntity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.*
@@ -67,8 +66,8 @@ class AddCategoryFragment : BaseApplication() {
 
     private fun clickState(category : CategoryEntity){
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Delete")
-            .setMessage("Are you sure to remove \"${category.categoryName.replaceFirstChar { it.uppercase() }}\" category?")
+            .setTitle("Remove")
+            .setMessage("Delete \"${category.categoryName.replaceFirstChar { it.uppercase() }}\" category?")
             .setNegativeButton("Cancel") { dialog, which ->
                 dialog.dismiss()
             }

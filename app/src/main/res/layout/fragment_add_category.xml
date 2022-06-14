@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".AddCategoryFragment">
 
-
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -24,7 +23,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="15dp"
-            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            android:clipChildren="false"
+            app:itemSpacing="5dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/outlinedTextField"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,8 +33,6 @@
             app:spanCount="2" />
 
     </com.google.android.material.card.MaterialCardView>
-
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/addCategoryTextField"
@@ -50,8 +49,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/addCategoryEditText"
             android:layout_width="match_parent"
-            android:inputType="textCapSentences"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
