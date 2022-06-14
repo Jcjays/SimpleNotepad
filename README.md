@@ -2,7 +2,7 @@
 An easy to use notepad that can be customized through color themes and can be categorized into different folders. 
 
 This project uses and follows: 
-• Kotlin
+• Kotlin </b>
 • MVVM pattern
 • Airbnb Epoxy Recyclerview
 • Android Room
