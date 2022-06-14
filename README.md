@@ -3,10 +3,18 @@ An easy to use notepad that can be customized through color themes and can be ca
 
 This project uses and follows: 
 • Kotlin 
+<br>
 • MVVM pattern
+<br>
 • Airbnb Epoxy Recyclerview
+<br>
 • Android Room
+<br>
 • Android Flows
+<br>
 • Android Coroutines
+<br>
 • View Binding
+<br>
 • Jetpack Navigation 
+<br>
