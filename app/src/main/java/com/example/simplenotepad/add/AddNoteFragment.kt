@@ -110,7 +110,7 @@ class AddNoteFragment : BaseApplication() {
             val noteEntity = existingNote!!.copy(
                 title = title,
                 content = content,
-                dateCreated = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(Calendar.getInstance().time),
+                dateCreated = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Calendar.getInstance().time),
                 color = color,
                 categoryId = itemCategoryId
             )
@@ -124,7 +124,7 @@ class AddNoteFragment : BaseApplication() {
             noteId = UUID.randomUUID().toString(),
             title = title,
             content = content,
-            dateCreated = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(Calendar.getInstance().time),
+            dateCreated = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Calendar.getInstance().time),
             color = color,
             categoryId = itemCategoryId
         )
