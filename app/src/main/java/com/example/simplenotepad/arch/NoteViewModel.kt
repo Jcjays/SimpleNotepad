@@ -107,13 +107,12 @@ class NoteViewModel : ViewModel() {
 
             HomeViewState.Sort.NEWEST -> {
                 val headerItem = HomeViewState.Data(
-                    data = HomeViewState.Sort.NEWEST.name,
+                    data = HomeViewState.Sort.OLDEST.name,
                     isHeader = true
                 )
-
                 viewStateItemList.add(headerItem)
 
-                modifiedDataList.sortedBy {
+                modifiedDataList.sortedByDescending {
                     it.noteEntity.dateCreated
                 }.forEach {
                     val dataItem = HomeViewState.Data(data = it)
@@ -123,12 +122,13 @@ class NoteViewModel : ViewModel() {
 
             HomeViewState.Sort.OLDEST ->{
                 val headerItem = HomeViewState.Data(
-                    data = HomeViewState.Sort.OLDEST.name,
+                    data = HomeViewState.Sort.NEWEST.name,
                     isHeader = true
                 )
+
                 viewStateItemList.add(headerItem)
 
-                modifiedDataList.sortedByDescending {
+                modifiedDataList.sortedBy {
                     it.noteEntity.dateCreated
                 }.forEach {
                     val dataItem = HomeViewState.Data(data = it)
